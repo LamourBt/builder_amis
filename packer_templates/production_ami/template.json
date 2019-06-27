@@ -1,0 +1,28 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "{{user `region`}}",
+            "source_ami_filter": {
+            	"filters": {
+            		"tag:BASE_AMI_STATUS":"ACTIVE",
+                    "tag:BASE_AMI_VERSION":"LATEST"
+            	},
+            	"owners":[273550723258],
+                "most_recent": true
+            },
+            "instance_type": "t2.micro",
+            "ssh_username": "ec2-user",
+            "ami_name": "production ami {{isotime \"2006-01-02\"}}"
+        }
+    ],
+    
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "./scripts/production_ami/setup.sh"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "{{user `region`}}",
+            "source_ami": "ami-035b3c7efe6d061d5",
+            "instance_type": "t2.micro",
+            "ssh_username": "ec2-user",
+            "force_deregister": "false",
+            "force_delete_snapshot": "false",
+            "ami_name": "based-centos-ami {{isotime \"2006-01-02\"}}",
+            "ami_description" : "Base ami for only live servers.",
+            "tags": {
+                "BASE_AMI_STATUS": "ACTIVE",
+                "BASE_AMI_VERSION": "LATEST",
+                "BASE_AMI_CREATED_AT":"{{ timestamp }}"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "./scripts/base_ami/setup.sh"
+        }
+    ]
+}
