@@ -1,1 +1,7 @@
+.DS_Store
+
 /secrets/aws.json
+terra/terraform.tfstate        
+terra/terraform.tfstate.backup
+/terra/secrets/*
+/terra/.terraform
